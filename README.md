@@ -30,7 +30,7 @@
 
 **源码仓库与 Windows 免安装包包含的运行环境不同。** 本仓库不包含 `runtime/`、`node_modules/`、模型缓存、个人配置或数据库。仅下载 GitHub 源码后，不能直接双击 `start.cmd` 启动；该启动器需要完整免安装包的内置运行环境。
 
-完整 Windows V3 包的使用流程见 [GUIDE-zh.md](GUIDE-zh.md)：解压、运行 `start.cmd`、填写自己的模型 API 配置，然后打开风险页。仓库准备时尚未附加该二进制整合包。
+完整 Windows V3 免安装包见 [Releases / v3.0.0](https://github.com/xiesq883/ai-travel-risk-v3/releases/tag/v3.0.0)。使用流程见 [GUIDE-zh.md](GUIDE-zh.md)：解压、运行 `start.cmd`、填写自己的模型 API 配置，然后打开风险页。私有仓库的下载者需要具备仓库访问权限。
 
 源码开发请在 `app/` 中准备 Python 3.11、Node/npm、PostgreSQL/pgvector 和 Redis，依据 [应用说明](app/README.zh-CN.md)、[配置文档](app/docs/configuration.md) 及示例配置安装依赖和配置服务。Python 依赖由 `pyproject.toml` 和 `uv.lock` 管理；前端依赖由 `app/frontend/package-lock.json` 管理。API 启动前需要执行数据库迁移。
 
