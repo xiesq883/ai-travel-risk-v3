@@ -1,0 +1,27 @@
+# Local secrets and generated configuration
+.env
+.env.*
+!.env.example
+config.yaml
+**/config.yaml
+*.pem
+*.key
+
+# Portable runtimes and dependencies
+runtime/
+node_modules/
+.venv/
+venv/
+
+# Personal state and generated files
+.state/
+app/data/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.log
+.DS_Store
+Thumbs.db
+*.zip
+*.rar

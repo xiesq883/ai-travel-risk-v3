@@ -1,0 +1,157 @@
+"""Local write-ahead outbox for telemetry, without prompts or credentials.
+
+One SQLite file per persistent application volume. Multiple API workers may
+share it; concurrent drains may duplicate a batch, so PostgreSQL call_id
+idempotency is mandatory. Only confirmed commits are acknowledged.
+"""
+import json
+import os
+from pathlib import Path
+import sqlite3
+import socket
+import sys
+
+
+def _windows_process_state(pid):
+    """Read state/creation time without sending Windows console control events.
+
+    Unlike POSIX kill(pid, 0), Windows os.kill(pid, 0) sends CTRL_C_EVENT.
+    Query a process handle instead; the creation timestamp also detects PID reuse.
+    """
+    import ctypes
+    from ctypes import wintypes
+
+    if pid <= 0:
+        return False, None
+    kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+    kernel.OpenProcess.restype = wintypes.HANDLE
+    kernel.WaitForSingleObject.argtypes = [wintypes.HANDLE, wintypes.DWORD]
+    kernel.WaitForSingleObject.restype = wintypes.DWORD
+    kernel.GetProcessTimes.argtypes = [wintypes.HANDLE, *([ctypes.POINTER(wintypes.FILETIME)] * 4)]
+    kernel.GetProcessTimes.restype = wintypes.BOOL
+    kernel.CloseHandle.argtypes = [wintypes.HANDLE]
+    kernel.CloseHandle.restype = wintypes.BOOL
+    # SYNCHRONIZE | PROCESS_QUERY_LIMITED_INFORMATION; never request termination.
+    handle = kernel.OpenProcess(0x00101000, False, pid)
+    if not handle:
+        error = ctypes.get_last_error()
+        if error == 87:  # ERROR_INVALID_PARAMETER: PID no longer exists.
+            return False, None
+        if error == 5:  # Access denied: conservatively treat it as still alive.
+            return True, None
+        raise ctypes.WinError(error)
+    try:
+        wait = kernel.WaitForSingleObject(handle, 0)
+        if wait == 0:  # Process handle is signalled only after it exits.
+            return False, None
+        if wait != 258:  # WAIT_TIMEOUT means the process is still running.
+            raise ctypes.WinError(ctypes.get_last_error())
+        creation, exit_time, kernel_time, user_time = (wintypes.FILETIME() for _ in range(4))
+        if not kernel.GetProcessTimes(handle, ctypes.byref(creation), ctypes.byref(exit_time), ctypes.byref(kernel_time), ctypes.byref(user_time)):
+            return True, None
+        start = (creation.dwHighDateTime << 32) | creation.dwLowDateTime
+        return True, f"{socket.gethostname()}:windows:{start}"
+    finally:
+        kernel.CloseHandle(handle)
+
+
+def process_identity(pid):
+    if sys.platform == "win32":
+        return _windows_process_state(pid)[1]
+    try:
+        # PID reuse must not keep an abandoned request alive indefinitely.
+        fields = Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()
+        return f"{socket.gethostname()}:{fields[19]}"
+    except (OSError, IndexError):
+        return None
+
+
+class UsageSpoolConflict(ValueError):
+    pass
+
+
+def pid_alive(pid):
+    if pid <= 0:
+        return False
+    if sys.platform == "win32":
+        return _windows_process_state(pid)[0]
+    try:
+        os.kill(pid, 0)
+        return True
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+
+
+class UsageSpool:
+    def __init__(self, path):
+        if str(path) != ":memory:":
+            target = Path(path).expanduser()
+            target.parent.mkdir(parents=True, exist_ok=True)
+            descriptor = os.open(target, os.O_CREAT | os.O_RDWR, 0o600)
+            os.close(descriptor)
+        self.db = sqlite3.connect(str(path), check_same_thread=False, timeout=10)
+        self.db.execute("PRAGMA journal_mode=WAL")
+        self.db.execute("PRAGMA synchronous=FULL")
+        with self.db:
+            # Multiple API processes may open/upgrade the same volume together.
+            # Serialize schema inspection and migration just like call_id writes.
+            self.db.execute("BEGIN IMMEDIATE")
+            self.db.execute("CREATE TABLE IF NOT EXISTS usage_outbox (id TEXT PRIMARY KEY, run_id TEXT NOT NULL, phase TEXT NOT NULL, pid INTEGER NOT NULL, payload TEXT NOT NULL, owner_token TEXT)")
+            self.db.execute("CREATE TABLE IF NOT EXISTS usage_capture_failures (run_id TEXT PRIMARY KEY, failures INTEGER NOT NULL)")
+            if "owner_token" not in {row[1] for row in self.db.execute("PRAGMA table_info(usage_outbox)")}:
+                self.db.execute("ALTER TABLE usage_outbox ADD COLUMN owner_token TEXT")
+        self.recover_abandoned()
+
+    @staticmethod
+    def encode(payload):
+        return json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+
+    def recover_abandoned(self, alive=pid_alive):
+        with self.db:
+            rows = self.db.execute("SELECT id,pid,payload,owner_token FROM usage_outbox WHERE phase='started'").fetchall()
+            for call_id, pid, data, owner_token in rows:
+                if alive(pid) and (owner_token is None or process_identity(pid) == owner_token):
+                    continue
+                payload = json.loads(data)
+                payload.update(status="interrupted", usage_complete=False, usage_source="missing",
+                               error_type="ProcessInterruptedBeforeUsageCommit")
+                self.db.execute("UPDATE usage_outbox SET phase='complete',payload=? WHERE id=? AND phase='started'",
+                                (self.encode(payload), call_id))
+
+    def put(self, payload, *, phase):
+        encoded = self.encode(payload)
+        with self.db:
+            self.db.execute("BEGIN IMMEDIATE")
+            row = self.db.execute("SELECT phase,payload FROM usage_outbox WHERE id=?", (payload["id"],)).fetchone()
+            if row and row[0] == "complete" and row[1] != encoded:
+                raise UsageSpoolConflict("call_id has conflicting usage payload")
+            self.db.execute("INSERT INTO usage_outbox (id,run_id,phase,pid,payload,owner_token) VALUES(?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET phase=excluded.phase,payload=excluded.payload",
+                            (payload["id"], payload["run_id"], phase, os.getpid(), encoded, process_identity(os.getpid())))
+
+    def pending(self, *, run_id=None, limit=500):
+        sql = "SELECT payload FROM usage_outbox WHERE phase='complete'"
+        params = []
+        if run_id:
+            sql += " AND run_id=?"
+            params.append(run_id)
+        sql += " ORDER BY rowid LIMIT ?"
+        return [json.loads(row[0]) for row in self.db.execute(sql, [*params, limit])]
+
+    def ack(self, payloads):
+        with self.db:
+            for payload in payloads:
+                self.db.execute("DELETE FROM usage_outbox WHERE id=? AND phase='complete' AND payload=?",
+                                (payload["id"], self.encode(payload)))
+
+    def failure(self, run_id, count):
+        with self.db:
+            self.db.execute("INSERT INTO usage_capture_failures VALUES(?,?) ON CONFLICT(run_id) DO UPDATE SET failures=usage_capture_failures.failures+excluded.failures",
+                            (run_id, count))
+
+    def integrity(self, run_id):
+        pending = self.db.execute("SELECT count(*) FROM usage_outbox WHERE run_id=?", (run_id,)).fetchone()[0]
+        row = self.db.execute("SELECT failures FROM usage_capture_failures WHERE run_id=?", (run_id,)).fetchone()
+        return pending, row[0] if row else 0

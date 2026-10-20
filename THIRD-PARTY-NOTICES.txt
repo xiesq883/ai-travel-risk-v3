@@ -1,0 +1,16 @@
+Third-party runtime components
+==============================
+JourneyPilot: https://github.com/Lagom-TA/JourneyPilot (app/LICENSE)
+CPython / python-build-standalone: runtime/python/LICENSE.txt and Lib/* license notices.
+Python dependencies: runtime/python/Lib/site-packages/*dist-info/licenses and LICENSE files.
+Node.js: https://nodejs.org/ (runtime/node/LICENSE)
+PostgreSQL: runtime/postgres/server_license.txt and commandlinetools_3rd_party_licenses.txt
+pgvector: https://github.com/pgvector/pgvector (runtime/postgres/pgvector-LICENSE)
+Redis Windows distribution: https://github.com/redis-windows/redis-windows
+Redis upstream: https://github.com/redis/redis (runtime/redis/REDIS-LICENSE.txt)
+Cygwin: https://cygwin.com/licensing.html (runtime/redis/CYGWIN-LICENSE.txt)
+Node MCP dependencies: app/node_modules contains their package license files.
+Embedding conversion: https://huggingface.co/n24q02m/Qwen3-Embedding-0.6B-ONNX
+Base model: https://huggingface.co/Qwen/Qwen3-Embedding-0.6B (runtime/model-cache/MODEL-LICENSE.txt)
+Runtime binaries were reused from the already verified local installation.
+No developer credentials, conversation data, database files, or personal uploads are included.

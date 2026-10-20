@@ -1,0 +1,2272 @@
+{
+  "$defs": {
+    "Activity": {
+      "additionalProperties": false,
+      "properties": {
+        "activity_id": {
+          "minLength": 1,
+          "title": "Activity Id",
+          "type": "string"
+        },
+        "address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Address"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/Assumption"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "confidence": {
+          "default": "unknown",
+          "enum": [
+            "verified",
+            "estimated",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "duration_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration Minutes"
+        },
+        "end_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End At"
+        },
+        "entity_type": {
+          "enum": [
+            "visit_stop",
+            "custom_block"
+          ],
+          "title": "Entity Type",
+          "type": "string"
+        },
+        "latitude": {
+          "anyOf": [
+            {
+              "maximum": 90,
+              "minimum": -90,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latitude"
+        },
+        "longitude": {
+          "anyOf": [
+            {
+              "maximum": 180,
+              "minimum": -180,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Longitude"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "outdoor": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outdoor"
+        },
+        "place_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Place Id"
+        },
+        "price_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Price Basis"
+        },
+        "price_type": {
+          "default": "unknown",
+          "enum": [
+            "actual_quote",
+            "estimated",
+            "unknown"
+          ],
+          "title": "Price Type",
+          "type": "string"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retrieved At"
+        },
+        "source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "start_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start At"
+        },
+        "ticket_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ticket Cny"
+        },
+        "visit_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visit Type"
+        }
+      },
+      "required": [
+        "activity_id",
+        "entity_type",
+        "name"
+      ],
+      "title": "Activity",
+      "type": "object"
+    },
+    "AmountRange": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "const": "CNY",
+          "default": "CNY",
+          "title": "Currency",
+          "type": "string"
+        },
+        "high_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "High Cny"
+        },
+        "low_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Low Cny"
+        },
+        "point_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Point Cny"
+        }
+      },
+      "title": "AmountRange",
+      "type": "object"
+    },
+    "Assumption": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "minLength": 1,
+          "title": "Code",
+          "type": "string"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "text"
+      ],
+      "title": "Assumption",
+      "type": "object"
+    },
+    "CostItem": {
+      "additionalProperties": false,
+      "properties": {
+        "amount_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Amount Cny"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/Assumption"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "category": {
+          "enum": [
+            "transport",
+            "dining",
+            "lodging",
+            "ticket",
+            "other"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "confidence": {
+          "default": "unknown",
+          "enum": [
+            "verified",
+            "estimated",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "cost_id": {
+          "minLength": 1,
+          "title": "Cost Id",
+          "type": "string"
+        },
+        "currency": {
+          "const": "CNY",
+          "default": "CNY",
+          "title": "Currency",
+          "type": "string"
+        },
+        "entity_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Id"
+        },
+        "entity_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Type"
+        },
+        "high_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "High Cny"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "low_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Low Cny"
+        },
+        "price_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Price Basis"
+        },
+        "price_type": {
+          "default": "unknown",
+          "enum": [
+            "actual_quote",
+            "estimated",
+            "unknown"
+          ],
+          "title": "Price Type",
+          "type": "string"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Quantity"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retrieved At"
+        },
+        "source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "unit_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Label"
+        },
+        "unit_scope": {
+          "default": "unknown",
+          "enum": [
+            "per_person",
+            "per_room_night",
+            "per_group",
+            "per_item",
+            "unknown"
+          ],
+          "title": "Unit Scope",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cost_id",
+        "category",
+        "label"
+      ],
+      "title": "CostItem",
+      "type": "object"
+    },
+    "CostSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "complete": {
+          "default": false,
+          "title": "Complete",
+          "type": "boolean"
+        },
+        "computed_by": {
+          "const": "backend",
+          "default": "backend",
+          "title": "Computed By",
+          "type": "string"
+        },
+        "dining": {
+          "$ref": "#/$defs/AmountRange"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/CostItem"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "lodging": {
+          "$ref": "#/$defs/AmountRange"
+        },
+        "other": {
+          "$ref": "#/$defs/AmountRange"
+        },
+        "priced_item_count": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Priced Item Count",
+          "type": "integer"
+        },
+        "ticket": {
+          "$ref": "#/$defs/AmountRange"
+        },
+        "total": {
+          "$ref": "#/$defs/AmountRange"
+        },
+        "transport": {
+          "$ref": "#/$defs/AmountRange"
+        },
+        "unknown_item_count": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Unknown Item Count",
+          "type": "integer"
+        }
+      },
+      "title": "CostSummary",
+      "type": "object"
+    },
+    "DataSourceStatus": {
+      "additionalProperties": false,
+      "description": "Configuration state of one external capability, never a successful call.",
+      "properties": {
+        "capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Capabilities",
+          "type": "array"
+        },
+        "configured": {
+          "title": "Configured",
+          "type": "boolean"
+        },
+        "kind": {
+          "enum": [
+            "weather",
+            "search",
+            "route",
+            "place",
+            "flight",
+            "hotel"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        },
+        "required_env": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Env",
+          "type": "array"
+        },
+        "source_id": {
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "name",
+        "kind",
+        "configured"
+      ],
+      "title": "DataSourceStatus",
+      "type": "object"
+    },
+    "DatasetCompatibility": {
+      "additionalProperties": false,
+      "properties": {
+        "legacy_bundle_contract": {
+          "default": "",
+          "title": "Legacy Bundle Contract",
+          "type": "string"
+        },
+        "legacy_fact_contract": {
+          "default": "",
+          "title": "Legacy Fact Contract",
+          "type": "string"
+        },
+        "legacy_weather_contract": {
+          "default": "",
+          "title": "Legacy Weather Contract",
+          "type": "string"
+        },
+        "legacy_workspace_contract": {
+          "default": "",
+          "title": "Legacy Workspace Contract",
+          "type": "string"
+        },
+        "min_reader_version": {
+          "const": "trip-dataset.v1",
+          "default": "trip-dataset.v1",
+          "title": "Min Reader Version",
+          "type": "string"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        }
+      },
+      "title": "DatasetCompatibility",
+      "type": "object"
+    },
+    "DatasetCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "estimated_fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Estimated Fields",
+          "type": "array"
+        },
+        "missing_fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Fields",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "title": "DatasetCoverage",
+      "type": "object"
+    },
+    "DatasetEndpoint": {
+      "additionalProperties": false,
+      "properties": {
+        "latitude": {
+          "anyOf": [
+            {
+              "maximum": 90,
+              "minimum": -90,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latitude"
+        },
+        "longitude": {
+          "anyOf": [
+            {
+              "maximum": 180,
+              "minimum": -180,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Longitude"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "place_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Place Id"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "DatasetEndpoint",
+      "type": "object"
+    },
+    "DayDataset": {
+      "additionalProperties": false,
+      "properties": {
+        "activities": {
+          "items": {
+            "$ref": "#/$defs/Activity"
+          },
+          "title": "Activities",
+          "type": "array"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/Assumption"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "day_id": {
+          "minLength": 1,
+          "title": "Day Id",
+          "type": "string"
+        },
+        "day_index": {
+          "minimum": 1,
+          "title": "Day Index",
+          "type": "integer"
+        },
+        "destination_id": {
+          "default": "",
+          "title": "Destination Id",
+          "type": "string"
+        },
+        "destination_name": {
+          "default": "",
+          "title": "Destination Name",
+          "type": "string"
+        },
+        "end_place": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DatasetEndpoint"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "lodging_stay_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lodging Stay Id"
+        },
+        "meals": {
+          "items": {
+            "$ref": "#/$defs/Meal"
+          },
+          "title": "Meals",
+          "type": "array"
+        },
+        "metrics": {
+          "$ref": "#/$defs/DayMetrics"
+        },
+        "routes": {
+          "items": {
+            "$ref": "#/$defs/RouteSegment"
+          },
+          "title": "Routes",
+          "type": "array"
+        },
+        "start_place": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DatasetEndpoint"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "timeline": {
+          "items": {
+            "$ref": "#/$defs/DayTimelineItem"
+          },
+          "title": "Timeline",
+          "type": "array"
+        },
+        "timezone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timezone"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "weather": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DayWeather"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "day_id",
+        "day_index",
+        "date"
+      ],
+      "title": "DayDataset",
+      "type": "object"
+    },
+    "DayMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "activity_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Activity Minutes"
+        },
+        "estimated_fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Estimated Fields",
+          "type": "array"
+        },
+        "outdoor_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outdoor Minutes"
+        },
+        "rest_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rest Minutes"
+        },
+        "transfers": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Transfers",
+          "type": "integer"
+        },
+        "transport_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Transport Minutes"
+        },
+        "walking_km": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Walking Km"
+        },
+        "walking_m": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Walking M"
+        }
+      },
+      "title": "DayMetrics",
+      "type": "object"
+    },
+    "DayTimelineItem": {
+      "additionalProperties": false,
+      "description": "One ordered entry inside a day, preserving activity/route interleaving.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "activity",
+            "meal",
+            "route",
+            "lodging"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "order": {
+          "minimum": 1,
+          "title": "Order",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "order",
+        "kind",
+        "id"
+      ],
+      "title": "DayTimelineItem",
+      "type": "object"
+    },
+    "DayWeather": {
+      "additionalProperties": false,
+      "properties": {
+        "condition_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Condition Code"
+        },
+        "condition_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Condition Label"
+        },
+        "confidence": {
+          "default": "unknown",
+          "enum": [
+            "verified",
+            "estimated",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "data_kind": {
+          "enum": [
+            "forecast",
+            "seasonal_baseline",
+            "observation",
+            "unavailable"
+          ],
+          "title": "Data Kind",
+          "type": "string"
+        },
+        "forecast_end_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Forecast End Date"
+        },
+        "high_c": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "High C"
+        },
+        "low_c": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Low C"
+        },
+        "precipitation_mm": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precipitation Mm"
+        },
+        "precipitation_probability_pct": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precipitation Probability Pct"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retrieved At"
+        },
+        "source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "wind_speed_kph": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Wind Speed Kph"
+        }
+      },
+      "required": [
+        "data_kind"
+      ],
+      "title": "DayWeather",
+      "type": "object"
+    },
+    "LodgingDatasetItem": {
+      "additionalProperties": false,
+      "properties": {
+        "address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Address"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/Assumption"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "availability_status": {
+          "default": "unknown",
+          "enum": [
+            "confirmed",
+            "needs_confirmation",
+            "unavailable",
+            "unknown"
+          ],
+          "title": "Availability Status",
+          "type": "string"
+        },
+        "check_in_date": {
+          "format": "date",
+          "title": "Check In Date",
+          "type": "string"
+        },
+        "check_out_date": {
+          "format": "date",
+          "title": "Check Out Date",
+          "type": "string"
+        },
+        "confidence": {
+          "default": "unknown",
+          "enum": [
+            "verified",
+            "estimated",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "guest_count": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Guest Count"
+        },
+        "includes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Includes",
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "nightly_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nightly Cny"
+        },
+        "nights": {
+          "minimum": 1,
+          "title": "Nights",
+          "type": "integer"
+        },
+        "place_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Place Id"
+        },
+        "price_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Price Basis"
+        },
+        "price_type": {
+          "default": "unknown",
+          "enum": [
+            "actual_quote",
+            "estimated",
+            "unknown"
+          ],
+          "title": "Price Type",
+          "type": "string"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retrieved At"
+        },
+        "room_count": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Room Count"
+        },
+        "source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "stay_id": {
+          "minLength": 1,
+          "title": "Stay Id",
+          "type": "string"
+        },
+        "total_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total Cny"
+        }
+      },
+      "required": [
+        "stay_id",
+        "name",
+        "check_in_date",
+        "check_out_date",
+        "nights"
+      ],
+      "title": "LodgingDatasetItem",
+      "type": "object"
+    },
+    "Meal": {
+      "additionalProperties": false,
+      "properties": {
+        "address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Address"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/Assumption"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "confidence": {
+          "default": "unknown",
+          "enum": [
+            "verified",
+            "estimated",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "duration_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration Minutes"
+        },
+        "end_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End At"
+        },
+        "meal_id": {
+          "minLength": 1,
+          "title": "Meal Id",
+          "type": "string"
+        },
+        "meal_type": {
+          "enum": [
+            "breakfast",
+            "lunch",
+            "dinner",
+            "snack",
+            "other"
+          ],
+          "title": "Meal Type",
+          "type": "string"
+        },
+        "party_size": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Party Size"
+        },
+        "per_person_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Per Person Cny"
+        },
+        "place_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Place Id"
+        },
+        "price_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Price Basis"
+        },
+        "price_type": {
+          "default": "unknown",
+          "enum": [
+            "actual_quote",
+            "estimated",
+            "unknown"
+          ],
+          "title": "Price Type",
+          "type": "string"
+        },
+        "restaurant_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Restaurant Name"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retrieved At"
+        },
+        "source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "start_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start At"
+        },
+        "status": {
+          "default": "unknown",
+          "enum": [
+            "planned",
+            "not_planned",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "total_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total Cny"
+        }
+      },
+      "required": [
+        "meal_id",
+        "meal_type"
+      ],
+      "title": "Meal",
+      "type": "object"
+    },
+    "RouteSegment": {
+      "additionalProperties": false,
+      "properties": {
+        "arrival_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Arrival At"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/Assumption"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "confidence": {
+          "default": "unknown",
+          "enum": [
+            "verified",
+            "estimated",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "departure_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Departure At"
+        },
+        "distance_m": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Distance M"
+        },
+        "distance_method": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Distance Method"
+        },
+        "distance_source": {
+          "default": "unknown",
+          "enum": [
+            "official_api",
+            "third_party_api",
+            "public_web",
+            "program_estimate",
+            "unknown"
+          ],
+          "title": "Distance Source",
+          "type": "string"
+        },
+        "duration_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration Minutes"
+        },
+        "fare_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fare Cny"
+        },
+        "from_endpoint": {
+          "$ref": "#/$defs/DatasetEndpoint"
+        },
+        "mode": {
+          "enum": [
+            "flight",
+            "high_speed_rail",
+            "train",
+            "coach",
+            "ferry",
+            "metro",
+            "bus",
+            "tram",
+            "taxi",
+            "ride_hailing",
+            "drive",
+            "bike",
+            "walk",
+            "other",
+            "unknown"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "price_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Price Basis"
+        },
+        "price_type": {
+          "default": "unknown",
+          "enum": [
+            "actual_quote",
+            "estimated",
+            "unknown"
+          ],
+          "title": "Price Type",
+          "type": "string"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retrieved At"
+        },
+        "route_id": {
+          "minLength": 1,
+          "title": "Route Id",
+          "type": "string"
+        },
+        "route_status": {
+          "default": "missing",
+          "enum": [
+            "ready",
+            "estimated",
+            "missing"
+          ],
+          "title": "Route Status",
+          "type": "string"
+        },
+        "source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/RouteStep"
+          },
+          "title": "Steps",
+          "type": "array"
+        },
+        "to_endpoint": {
+          "$ref": "#/$defs/DatasetEndpoint"
+        },
+        "transfer_count": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Transfer Count",
+          "type": "integer"
+        },
+        "transport_leg_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Transport Leg Id"
+        }
+      },
+      "required": [
+        "route_id",
+        "from_endpoint",
+        "to_endpoint",
+        "mode"
+      ],
+      "title": "RouteSegment",
+      "type": "object"
+    },
+    "RouteStep": {
+      "additionalProperties": false,
+      "properties": {
+        "arrival_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Arrival At"
+        },
+        "departure_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Departure At"
+        },
+        "distance_m": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Distance M"
+        },
+        "duration_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration Minutes"
+        },
+        "fare_cny": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fare Cny"
+        },
+        "from_name": {
+          "default": "",
+          "title": "From Name",
+          "type": "string"
+        },
+        "line_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line Name"
+        },
+        "mode": {
+          "enum": [
+            "flight",
+            "high_speed_rail",
+            "train",
+            "coach",
+            "ferry",
+            "metro",
+            "bus",
+            "tram",
+            "taxi",
+            "ride_hailing",
+            "drive",
+            "bike",
+            "walk",
+            "other",
+            "unknown"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "service_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Service Number"
+        },
+        "to_name": {
+          "default": "",
+          "title": "To Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "title": "RouteStep",
+      "type": "object"
+    },
+    "SourceCitation": {
+      "additionalProperties": false,
+      "description": "One traceable source record, as referenced by field-level source_ids.",
+      "properties": {
+        "citation_id": {
+          "minLength": 1,
+          "title": "Citation Id",
+          "type": "string"
+        },
+        "confidence": {
+          "default": "unverified",
+          "enum": [
+            "verified",
+            "estimated",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "excerpt": {
+          "default": "",
+          "title": "Excerpt",
+          "type": "string"
+        },
+        "fact_assertion_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Fact Assertion Ids",
+          "type": "array"
+        },
+        "provider": {
+          "default": "",
+          "title": "Provider",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retrieved At"
+        },
+        "source_record_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Record Id"
+        },
+        "source_type": {
+          "enum": [
+            "official_api",
+            "third_party_api",
+            "public_web",
+            "program_estimate",
+            "unknown"
+          ],
+          "title": "Source Type",
+          "type": "string"
+        },
+        "title": {
+          "default": "",
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "citation_id",
+        "source_type"
+      ],
+      "title": "SourceCitation",
+      "type": "object"
+    },
+    "TripBasics": {
+      "additionalProperties": false,
+      "properties": {
+        "bundle_id": {
+          "minLength": 1,
+          "title": "Bundle Id",
+          "type": "string"
+        },
+        "destination_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Destination Ids",
+          "type": "array"
+        },
+        "destination_names": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Destination Names",
+          "type": "array"
+        },
+        "end_date": {
+          "format": "date",
+          "title": "End Date",
+          "type": "string"
+        },
+        "fact_data_revision": {
+          "minimum": 0,
+          "title": "Fact Data Revision",
+          "type": "integer"
+        },
+        "itinerary_id": {
+          "minLength": 1,
+          "title": "Itinerary Id",
+          "type": "string"
+        },
+        "origin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DatasetEndpoint"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "party": {
+          "$ref": "#/$defs/TripParty"
+        },
+        "preferences": {
+          "$ref": "#/$defs/TripPreferences"
+        },
+        "run_id": {
+          "minLength": 1,
+          "title": "Run Id",
+          "type": "string"
+        },
+        "start_date": {
+          "format": "date",
+          "title": "Start Date",
+          "type": "string"
+        },
+        "timezone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timezone"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "weather_data_revision": {
+          "minimum": 0,
+          "title": "Weather Data Revision",
+          "type": "integer"
+        },
+        "workspace_revision": {
+          "minimum": 0,
+          "title": "Workspace Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "run_id",
+        "bundle_id",
+        "itinerary_id",
+        "workspace_revision",
+        "fact_data_revision",
+        "weather_data_revision",
+        "title",
+        "start_date",
+        "end_date"
+      ],
+      "title": "TripBasics",
+      "type": "object"
+    },
+    "TripParty": {
+      "additionalProperties": false,
+      "properties": {
+        "accessibility_required": {
+          "default": false,
+          "title": "Accessibility Required",
+          "type": "boolean"
+        },
+        "adults": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Adults",
+          "type": "integer"
+        },
+        "children": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Children",
+          "type": "integer"
+        },
+        "elderly_companions": {
+          "default": false,
+          "title": "Elderly Companions",
+          "type": "boolean"
+        }
+      },
+      "title": "TripParty",
+      "type": "object"
+    },
+    "TripPreferences": {
+      "additionalProperties": false,
+      "properties": {
+        "interests": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Interests",
+          "type": "array"
+        },
+        "requirements": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Requirements",
+          "type": "array"
+        },
+        "style": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Style"
+        }
+      },
+      "title": "TripPreferences",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "assumptions": {
+      "items": {
+        "$ref": "#/$defs/Assumption"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "compatibility": {
+      "$ref": "#/$defs/DatasetCompatibility"
+    },
+    "costs": {
+      "$ref": "#/$defs/CostSummary"
+    },
+    "coverage": {
+      "$ref": "#/$defs/DatasetCoverage"
+    },
+    "data_sources": {
+      "items": {
+        "$ref": "#/$defs/DataSourceStatus"
+      },
+      "title": "Data Sources",
+      "type": "array"
+    },
+    "dataset_id": {
+      "minLength": 1,
+      "title": "Dataset Id",
+      "type": "string"
+    },
+    "days": {
+      "items": {
+        "$ref": "#/$defs/DayDataset"
+      },
+      "minItems": 1,
+      "title": "Days",
+      "type": "array"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "lodgings": {
+      "items": {
+        "$ref": "#/$defs/LodgingDatasetItem"
+      },
+      "title": "Lodgings",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "trip-dataset.v1",
+      "default": "trip-dataset.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/SourceCitation"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "trip": {
+      "$ref": "#/$defs/TripBasics"
+    }
+  },
+  "required": [
+    "dataset_id",
+    "generated_at",
+    "compatibility",
+    "trip",
+    "days",
+    "costs"
+  ],
+  "title": "TripDataset",
+  "type": "object"
+}

@@ -1,0 +1,1076 @@
+{
+  "schema_version": "trip-dataset.v1",
+  "dataset_id": "tds_04c67e1a1a8b2442",
+  "generated_at": "2026-10-17T04:00:00Z",
+  "compatibility": {
+    "min_reader_version": "trip-dataset.v1",
+    "legacy_bundle_contract": "journeypilot.delivery_bundle.v10",
+    "legacy_workspace_contract": "journeypilot.trip_workspace.v10",
+    "legacy_fact_contract": "journeypilot.fact_store_snapshot.v4",
+    "legacy_weather_contract": "journeypilot.weather_context_snapshot.v2",
+    "notes": [
+      "本数据集是 Delivery Bundle 的只读投影，不改变原行程与导出。",
+      "未知字段保持 null 并在 coverage.missing_fields 中列出。"
+    ]
+  },
+  "trip": {
+    "run_id": "trip-ds-1",
+    "bundle_id": "bundle-ds-1",
+    "itinerary_id": "trip-ds-1:itinerary",
+    "workspace_revision": 4,
+    "fact_data_revision": 7,
+    "weather_data_revision": 2,
+    "title": "杭州两日文化行",
+    "origin": {
+      "name": "武汉",
+      "place_id": "12306:WHN",
+      "latitude": 30.6098,
+      "longitude": 114.4189
+    },
+    "destination_ids": [
+      "hangzhou"
+    ],
+    "destination_names": [
+      "杭州"
+    ],
+    "start_date": "2026-10-18",
+    "end_date": "2026-10-19",
+    "timezone": "Asia/Shanghai",
+    "party": {
+      "adults": 2,
+      "children": 1,
+      "elderly_companions": false,
+      "accessibility_required": false
+    },
+    "preferences": {
+      "style": "culture",
+      "interests": [
+        "美食"
+      ],
+      "requirements": [
+        "每天步行不要太多"
+      ]
+    }
+  },
+  "days": [
+    {
+      "day_id": "day-1",
+      "day_index": 1,
+      "date": "2026-10-18",
+      "timezone": "Asia/Shanghai",
+      "destination_id": "hangzhou",
+      "destination_name": "杭州",
+      "start_place": {
+        "name": "武汉",
+        "place_id": "12306:WHN",
+        "latitude": 30.6098,
+        "longitude": 114.4189
+      },
+      "end_place": {
+        "name": "楼外楼",
+        "place_id": "osm:node:3",
+        "latitude": 30.2527,
+        "longitude": 120.1361
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "kind": "route",
+          "id": "leg-rail"
+        },
+        {
+          "order": 2,
+          "kind": "route",
+          "id": "leg-metro"
+        },
+        {
+          "order": 3,
+          "kind": "activity",
+          "id": "visit-lake"
+        },
+        {
+          "order": 4,
+          "kind": "route",
+          "id": "gap_c18faf9297"
+        },
+        {
+          "order": 5,
+          "kind": "meal",
+          "id": "dining-lunch"
+        }
+      ],
+      "activities": [
+        {
+          "activity_id": "visit-lake",
+          "entity_type": "visit_stop",
+          "name": "雷峰塔",
+          "place_id": "osm:way:1",
+          "address": "杭州市西湖区",
+          "latitude": 30.2311,
+          "longitude": 120.1489,
+          "visit_type": "nature",
+          "start_at": "2026-10-18T15:00:00+08:00",
+          "end_at": "2026-10-18T16:30:00+08:00",
+          "duration_minutes": 90.0,
+          "ticket_cny": 40.0,
+          "price_type": "estimated",
+          "price_basis": "itinerary_estimate",
+          "outdoor": true,
+          "source_ids": [
+            "source-ticket"
+          ],
+          "retrieved_at": "2026-10-17T04:00:00Z",
+          "confidence": "unverified",
+          "assumptions": []
+        }
+      ],
+      "meals": [
+        {
+          "meal_id": "dining-lunch",
+          "meal_type": "lunch",
+          "status": "planned",
+          "restaurant_name": "楼外楼",
+          "place_id": "osm:node:3",
+          "address": "杭州市西湖区孤山路",
+          "start_at": "2026-10-18T18:30:00+08:00",
+          "end_at": "2026-10-18T20:00:00+08:00",
+          "duration_minutes": 90.0,
+          "party_size": 3,
+          "per_person_cny": 80.0,
+          "total_cny": 240.0,
+          "price_type": "estimated",
+          "price_basis": "reference_per_person",
+          "source_ids": [
+            "source-dianping"
+          ],
+          "retrieved_at": "2026-10-17T04:00:00Z",
+          "confidence": "verified",
+          "assumptions": []
+        },
+        {
+          "meal_id": "not_planned:breakfast",
+          "meal_type": "breakfast",
+          "status": "not_planned",
+          "restaurant_name": null,
+          "place_id": null,
+          "address": null,
+          "start_at": null,
+          "end_at": null,
+          "duration_minutes": null,
+          "party_size": null,
+          "per_person_cny": null,
+          "total_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "unknown",
+          "assumptions": [
+            {
+              "code": "breakfast_not_planned",
+              "text": "行程未安排这一餐，费用与餐厅保持未知。"
+            }
+          ]
+        },
+        {
+          "meal_id": "not_planned:dinner",
+          "meal_type": "dinner",
+          "status": "not_planned",
+          "restaurant_name": null,
+          "place_id": null,
+          "address": null,
+          "start_at": null,
+          "end_at": null,
+          "duration_minutes": null,
+          "party_size": null,
+          "per_person_cny": null,
+          "total_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "unknown",
+          "assumptions": [
+            {
+              "code": "dinner_not_planned",
+              "text": "行程未安排这一餐，费用与餐厅保持未知。"
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "leg-rail",
+          "transport_leg_id": "leg-rail",
+          "from_endpoint": {
+            "name": "武汉",
+            "place_id": "12306:WHN",
+            "latitude": 30.6098,
+            "longitude": 114.4189
+          },
+          "to_endpoint": {
+            "name": "杭州东",
+            "place_id": "12306:HGH",
+            "latitude": 30.2938,
+            "longitude": 120.2087
+          },
+          "mode": "high_speed_rail",
+          "route_status": "ready",
+          "departure_at": "2026-10-18T08:00:00+08:00",
+          "arrival_at": "2026-10-18T12:00:00+08:00",
+          "duration_minutes": 240.0,
+          "distance_m": null,
+          "distance_source": "unknown",
+          "distance_method": null,
+          "fare_cny": 354.0,
+          "price_type": "actual_quote",
+          "price_basis": "published_fare",
+          "transfer_count": 0,
+          "steps": [
+            {
+              "mode": "high_speed_rail",
+              "from_name": "武汉",
+              "to_name": "杭州东",
+              "line_name": null,
+              "service_number": "G1792",
+              "departure_at": "2026-10-18T08:00:00+08:00",
+              "arrival_at": "2026-10-18T12:00:00+08:00",
+              "duration_minutes": 240.0,
+              "distance_m": null,
+              "fare_cny": 354.0
+            }
+          ],
+          "source_ids": [
+            "source-12306"
+          ],
+          "retrieved_at": "2026-10-17T04:00:00Z",
+          "confidence": "verified",
+          "assumptions": []
+        },
+        {
+          "route_id": "leg-metro",
+          "transport_leg_id": "leg-metro",
+          "from_endpoint": {
+            "name": "杭州东",
+            "place_id": "12306:HGH",
+            "latitude": 30.2938,
+            "longitude": 120.2087
+          },
+          "to_endpoint": {
+            "name": "雷峰塔",
+            "place_id": "osm:way:1",
+            "latitude": 30.2311,
+            "longitude": 120.1489
+          },
+          "mode": "metro",
+          "route_status": "ready",
+          "departure_at": null,
+          "arrival_at": null,
+          "duration_minutes": 25.0,
+          "distance_m": null,
+          "distance_source": "unknown",
+          "distance_method": null,
+          "fare_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "transfer_count": 0,
+          "steps": [],
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "unknown",
+          "assumptions": []
+        },
+        {
+          "route_id": "gap_c18faf9297",
+          "transport_leg_id": null,
+          "from_endpoint": {
+            "name": "雷峰塔",
+            "place_id": "osm:way:1",
+            "latitude": 30.2311,
+            "longitude": 120.1489
+          },
+          "to_endpoint": {
+            "name": "楼外楼",
+            "place_id": "osm:node:3",
+            "latitude": 30.2527,
+            "longitude": 120.1361
+          },
+          "mode": "walk",
+          "route_status": "estimated",
+          "departure_at": null,
+          "arrival_at": null,
+          "duration_minutes": 43.8,
+          "distance_m": 3507.74,
+          "distance_source": "program_estimate",
+          "distance_method": "haversine_x_1.3_walk_4.8kmh",
+          "fare_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "transfer_count": 0,
+          "steps": [],
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "estimated",
+          "assumptions": [
+            {
+              "code": "unqueried_walk_gap",
+              "text": "行程未给出这段步行路线；按两点直线距离 × 1.3 的道路绕行系数估算，属于程序估算。"
+            }
+          ]
+        }
+      ],
+      "lodging_stay_id": "stay-1",
+      "weather": {
+        "data_kind": "forecast",
+        "forecast_end_date": null,
+        "condition_label": "多云",
+        "high_c": 24.0,
+        "low_c": 16.0,
+        "precipitation_mm": 0.0,
+        "precipitation_probability_pct": 20.0,
+        "wind_speed_kph": 9.0,
+        "condition_code": 2,
+        "retrieved_at": "2026-10-17T04:00:00Z",
+        "source_ids": [
+          "source-weather"
+        ],
+        "confidence": "verified"
+      },
+      "metrics": {
+        "activity_minutes": 90.0,
+        "transport_minutes": 265.0,
+        "walking_m": 3507.7,
+        "walking_km": 3.508,
+        "outdoor_minutes": 133.8,
+        "rest_minutes": 256.2,
+        "transfers": 0,
+        "estimated_fields": [
+          "walking_km",
+          "outdoor_minutes",
+          "rest_minutes"
+        ]
+      },
+      "warnings": [],
+      "assumptions": [
+        {
+          "code": "unqueried_walk_gap",
+          "text": "行程未给出这段步行路线；按两点直线距离 × 1.3 的道路绕行系数估算，属于程序估算。"
+        }
+      ]
+    },
+    {
+      "day_id": "day-2",
+      "day_index": 2,
+      "date": "2026-10-19",
+      "timezone": "Asia/Shanghai",
+      "destination_id": "hangzhou",
+      "destination_name": "杭州",
+      "start_place": {
+        "name": "浙江省博物馆",
+        "place_id": "osm:way:2",
+        "latitude": 30.253,
+        "longitude": 120.137
+      },
+      "end_place": {
+        "name": "杭州酒家",
+        "place_id": "osm:node:4",
+        "latitude": null,
+        "longitude": null
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "kind": "activity",
+          "id": "visit-museum"
+        },
+        {
+          "order": 2,
+          "kind": "route",
+          "id": "leg-walk"
+        },
+        {
+          "order": 3,
+          "kind": "meal",
+          "id": "dining-dinner"
+        },
+        {
+          "order": 4,
+          "kind": "activity",
+          "id": "custom-1"
+        }
+      ],
+      "activities": [
+        {
+          "activity_id": "visit-museum",
+          "entity_type": "visit_stop",
+          "name": "浙江省博物馆",
+          "place_id": "osm:way:2",
+          "address": "杭州市西湖区",
+          "latitude": 30.253,
+          "longitude": 120.137,
+          "visit_type": "culture",
+          "start_at": "2026-10-19T09:00:00+08:00",
+          "end_at": "2026-10-19T10:00:00+08:00",
+          "duration_minutes": 60.0,
+          "ticket_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "outdoor": null,
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "unknown",
+          "assumptions": []
+        },
+        {
+          "activity_id": "custom-1",
+          "entity_type": "custom_block",
+          "name": "自由活动",
+          "place_id": null,
+          "address": null,
+          "latitude": null,
+          "longitude": null,
+          "visit_type": null,
+          "start_at": "2026-10-19T15:00:00+08:00",
+          "end_at": "2026-10-19T16:00:00+08:00",
+          "duration_minutes": 60.0,
+          "ticket_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "outdoor": null,
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "unknown",
+          "assumptions": []
+        }
+      ],
+      "meals": [
+        {
+          "meal_id": "dining-dinner",
+          "meal_type": "dinner",
+          "status": "planned",
+          "restaurant_name": "杭州酒家",
+          "place_id": "osm:node:4",
+          "address": "杭州市上城区延安路",
+          "start_at": "2026-10-19T18:00:00+08:00",
+          "end_at": "2026-10-19T19:30:00+08:00",
+          "duration_minutes": 90.0,
+          "party_size": 3,
+          "per_person_cny": null,
+          "total_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "unknown",
+          "assumptions": []
+        },
+        {
+          "meal_id": "not_planned:breakfast",
+          "meal_type": "breakfast",
+          "status": "not_planned",
+          "restaurant_name": null,
+          "place_id": null,
+          "address": null,
+          "start_at": null,
+          "end_at": null,
+          "duration_minutes": null,
+          "party_size": null,
+          "per_person_cny": null,
+          "total_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "unknown",
+          "assumptions": [
+            {
+              "code": "breakfast_not_planned",
+              "text": "行程未安排这一餐，费用与餐厅保持未知。"
+            }
+          ]
+        },
+        {
+          "meal_id": "not_planned:lunch",
+          "meal_type": "lunch",
+          "status": "not_planned",
+          "restaurant_name": null,
+          "place_id": null,
+          "address": null,
+          "start_at": null,
+          "end_at": null,
+          "duration_minutes": null,
+          "party_size": null,
+          "per_person_cny": null,
+          "total_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "unknown",
+          "assumptions": [
+            {
+              "code": "lunch_not_planned",
+              "text": "行程未安排这一餐，费用与餐厅保持未知。"
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "route_id": "leg-walk",
+          "transport_leg_id": "leg-walk",
+          "from_endpoint": {
+            "name": "浙江省博物馆",
+            "place_id": "osm:way:2",
+            "latitude": 30.253,
+            "longitude": 120.137
+          },
+          "to_endpoint": {
+            "name": "楼外楼",
+            "place_id": "osm:node:3",
+            "latitude": 30.2527,
+            "longitude": 120.1361
+          },
+          "mode": "walk",
+          "route_status": "ready",
+          "departure_at": null,
+          "arrival_at": null,
+          "duration_minutes": 15.0,
+          "distance_m": 1200.0,
+          "distance_source": "program_estimate",
+          "distance_method": "walk_duration_x_4.8kmh",
+          "fare_cny": null,
+          "price_type": "unknown",
+          "price_basis": null,
+          "transfer_count": 0,
+          "steps": [],
+          "source_ids": [],
+          "retrieved_at": null,
+          "confidence": "unverified",
+          "assumptions": [
+            {
+              "code": "walk_distance_from_duration",
+              "text": "未取得步行距离，按 4.8 km/h 的步行速度由计划时长反推，误差可能较大。"
+            }
+          ]
+        }
+      ],
+      "lodging_stay_id": null,
+      "weather": null,
+      "metrics": {
+        "activity_minutes": 120.0,
+        "transport_minutes": 15.0,
+        "walking_m": 1200.0,
+        "walking_km": 1.2,
+        "outdoor_minutes": 15.0,
+        "rest_minutes": 420.0,
+        "transfers": 0,
+        "estimated_fields": [
+          "walking_km",
+          "outdoor_minutes",
+          "rest_minutes"
+        ]
+      },
+      "warnings": [
+        "这一天没有可用的天气快照，天气相关判断应保持未知。"
+      ],
+      "assumptions": []
+    }
+  ],
+  "lodgings": [
+    {
+      "stay_id": "stay-1",
+      "name": "西湖边的酒店",
+      "place_id": "osm:node:9",
+      "address": "杭州市西湖区",
+      "check_in_date": "2026-10-18",
+      "check_out_date": "2026-10-19",
+      "nights": 1,
+      "room_count": null,
+      "guest_count": 3,
+      "nightly_cny": 480.0,
+      "total_cny": 480.0,
+      "price_type": "estimated",
+      "price_basis": "reference_estimate",
+      "availability_status": "needs_confirmation",
+      "includes": [],
+      "source_ids": [],
+      "retrieved_at": null,
+      "confidence": "unknown",
+      "assumptions": [
+        {
+          "code": "lodging_not_live_quote",
+          "text": "住宿价格是参考估算，未取得指定日期的实时报价；不代表有房或可直接预订。"
+        },
+        {
+          "code": "lodging_rooms_unknown",
+          "text": "行程未给出房间数，房型与房间数保持未知。"
+        }
+      ]
+    }
+  ],
+  "costs": {
+    "items": [
+      {
+        "cost_id": "cost_leg-rail",
+        "category": "transport",
+        "label": "武汉 → 杭州东",
+        "entity_type": "transport_leg",
+        "entity_id": "leg-rail",
+        "amount_cny": 354.0,
+        "low_cny": 354.0,
+        "high_cny": 354.0,
+        "currency": "CNY",
+        "unit_scope": "per_group",
+        "quantity": null,
+        "unit_label": "整段",
+        "price_type": "actual_quote",
+        "price_basis": "published_fare",
+        "source_ids": [
+          "source-12306"
+        ],
+        "retrieved_at": "2026-10-17T04:00:00Z",
+        "confidence": "verified",
+        "assumptions": []
+      },
+      {
+        "cost_id": "cost_leg-metro",
+        "category": "transport",
+        "label": "杭州东 → 雷峰塔",
+        "entity_type": "transport_leg",
+        "entity_id": "leg-metro",
+        "amount_cny": null,
+        "low_cny": null,
+        "high_cny": null,
+        "currency": "CNY",
+        "unit_scope": "per_group",
+        "quantity": null,
+        "unit_label": "整段",
+        "price_type": "unknown",
+        "price_basis": null,
+        "source_ids": [],
+        "retrieved_at": null,
+        "confidence": "unknown",
+        "assumptions": []
+      },
+      {
+        "cost_id": "cost_leg-walk",
+        "category": "transport",
+        "label": "浙江省博物馆 → 楼外楼",
+        "entity_type": "transport_leg",
+        "entity_id": "leg-walk",
+        "amount_cny": null,
+        "low_cny": null,
+        "high_cny": null,
+        "currency": "CNY",
+        "unit_scope": "per_group",
+        "quantity": null,
+        "unit_label": "整段",
+        "price_type": "unknown",
+        "price_basis": null,
+        "source_ids": [],
+        "retrieved_at": null,
+        "confidence": "unverified",
+        "assumptions": []
+      },
+      {
+        "cost_id": "cost_dining-lunch",
+        "category": "dining",
+        "label": "楼外楼",
+        "entity_type": "dining_stop",
+        "entity_id": "dining-lunch",
+        "amount_cny": 240.0,
+        "low_cny": 240.0,
+        "high_cny": 240.0,
+        "currency": "CNY",
+        "unit_scope": "per_group",
+        "quantity": 3.0,
+        "unit_label": "人",
+        "price_type": "estimated",
+        "price_basis": "reference_per_person",
+        "source_ids": [
+          "source-dianping"
+        ],
+        "retrieved_at": null,
+        "confidence": "verified",
+        "assumptions": []
+      },
+      {
+        "cost_id": "cost_dining-dinner",
+        "category": "dining",
+        "label": "杭州酒家",
+        "entity_type": "dining_stop",
+        "entity_id": "dining-dinner",
+        "amount_cny": null,
+        "low_cny": null,
+        "high_cny": null,
+        "currency": "CNY",
+        "unit_scope": "per_person",
+        "quantity": 3.0,
+        "unit_label": "人",
+        "price_type": "unknown",
+        "price_basis": null,
+        "source_ids": [],
+        "retrieved_at": null,
+        "confidence": "unknown",
+        "assumptions": []
+      },
+      {
+        "cost_id": "cost_stay-1",
+        "category": "lodging",
+        "label": "西湖边的酒店",
+        "entity_type": "lodging_stay",
+        "entity_id": "stay-1",
+        "amount_cny": 480.0,
+        "low_cny": 480.0,
+        "high_cny": 480.0,
+        "currency": "CNY",
+        "unit_scope": "per_group",
+        "quantity": 1.0,
+        "unit_label": "晚",
+        "price_type": "estimated",
+        "price_basis": "reference_estimate",
+        "source_ids": [],
+        "retrieved_at": null,
+        "confidence": "unknown",
+        "assumptions": [
+          {
+            "code": "lodging_not_live_quote",
+            "text": "住宿价格是参考估算，未取得指定日期的实时报价；不代表有房或可直接预订。"
+          },
+          {
+            "code": "lodging_rooms_unknown",
+            "text": "行程未给出房间数，房型与房间数保持未知。"
+          }
+        ]
+      },
+      {
+        "cost_id": "cost_visit-lake",
+        "category": "ticket",
+        "label": "雷峰塔",
+        "entity_type": "visit_stop",
+        "entity_id": "visit-lake",
+        "amount_cny": 40.0,
+        "low_cny": 40.0,
+        "high_cny": 40.0,
+        "currency": "CNY",
+        "unit_scope": "per_item",
+        "quantity": null,
+        "unit_label": "行程条目",
+        "price_type": "estimated",
+        "price_basis": "itinerary_estimate",
+        "source_ids": [
+          "source-ticket"
+        ],
+        "retrieved_at": null,
+        "confidence": "unverified",
+        "assumptions": []
+      },
+      {
+        "cost_id": "cost_visit-museum",
+        "category": "ticket",
+        "label": "浙江省博物馆",
+        "entity_type": "visit_stop",
+        "entity_id": "visit-museum",
+        "amount_cny": null,
+        "low_cny": null,
+        "high_cny": null,
+        "currency": "CNY",
+        "unit_scope": "per_item",
+        "quantity": null,
+        "unit_label": "行程条目",
+        "price_type": "unknown",
+        "price_basis": null,
+        "source_ids": [],
+        "retrieved_at": null,
+        "confidence": "unknown",
+        "assumptions": []
+      }
+    ],
+    "transport": {
+      "currency": "CNY",
+      "low_cny": 354.0,
+      "high_cny": 354.0,
+      "point_cny": 354.0
+    },
+    "dining": {
+      "currency": "CNY",
+      "low_cny": 240.0,
+      "high_cny": 240.0,
+      "point_cny": 240.0
+    },
+    "lodging": {
+      "currency": "CNY",
+      "low_cny": 480.0,
+      "high_cny": 480.0,
+      "point_cny": 480.0
+    },
+    "ticket": {
+      "currency": "CNY",
+      "low_cny": 40.0,
+      "high_cny": 40.0,
+      "point_cny": 40.0
+    },
+    "other": {
+      "currency": "CNY",
+      "low_cny": null,
+      "high_cny": null,
+      "point_cny": null
+    },
+    "total": {
+      "currency": "CNY",
+      "low_cny": 1114.0,
+      "high_cny": 1114.0,
+      "point_cny": 1114.0
+    },
+    "priced_item_count": 4,
+    "unknown_item_count": 4,
+    "complete": false,
+    "computed_by": "backend"
+  },
+  "sources": [
+    {
+      "citation_id": "source-12306",
+      "source_record_id": "source-12306",
+      "source_type": "official_api",
+      "provider": "12306",
+      "title": "G1792 票价",
+      "url": "https://www.12306.cn/",
+      "retrieved_at": "2026-10-17T04:00:00Z",
+      "published_at": null,
+      "excerpt": "公开页面摘要，仅作参考。",
+      "confidence": "verified",
+      "fact_assertion_ids": [
+        "fact-fare"
+      ]
+    },
+    {
+      "citation_id": "source-dianping",
+      "source_record_id": "source-dianping",
+      "source_type": "public_web",
+      "provider": "大众点评",
+      "title": "楼外楼人均",
+      "url": "https://www.dianping.com/",
+      "retrieved_at": "2026-10-17T04:00:00Z",
+      "published_at": null,
+      "excerpt": "公开页面摘要，仅作参考。",
+      "confidence": "verified",
+      "fact_assertion_ids": [
+        "fact-dining"
+      ]
+    },
+    {
+      "citation_id": "source-ticket",
+      "source_record_id": "source-ticket",
+      "source_type": "public_web",
+      "provider": "景区官网",
+      "title": "雷峰塔门票",
+      "url": "https://example.com/ticket",
+      "retrieved_at": "2026-10-17T04:00:00Z",
+      "published_at": null,
+      "excerpt": "公开页面摘要，仅作参考。",
+      "confidence": "unverified",
+      "fact_assertion_ids": [
+        "fact-ticket"
+      ]
+    },
+    {
+      "citation_id": "source-weather",
+      "source_record_id": "source-weather",
+      "source_type": "third_party_api",
+      "provider": "open-meteo",
+      "title": "杭州天气",
+      "url": "https://open-meteo.com/",
+      "retrieved_at": "2026-10-17T04:00:00Z",
+      "published_at": null,
+      "excerpt": "公开页面摘要，仅作参考。",
+      "confidence": "verified",
+      "fact_assertion_ids": [
+        "fact-weather"
+      ]
+    }
+  ],
+  "data_sources": [
+    {
+      "source_id": "open-meteo",
+      "name": "Open-Meteo",
+      "kind": "weather",
+      "configured": false,
+      "capabilities": [
+        "daily_forecast",
+        "current_weather"
+      ],
+      "required_env": [],
+      "note": "未启用，无法补齐缺失天气。"
+    },
+    {
+      "source_id": "duckduckgo-search",
+      "name": "DuckDuckGo",
+      "kind": "search",
+      "configured": false,
+      "capabilities": [
+        "web_search"
+      ],
+      "required_env": [],
+      "note": "免密钥网页搜索；结果按公开网页记录，不视为官方报价。"
+    },
+    {
+      "source_id": "tavily-search",
+      "name": "Tavily",
+      "kind": "search",
+      "configured": false,
+      "capabilities": [
+        "web_search",
+        "extract"
+      ],
+      "required_env": [
+        "TAVILY_API_KEY"
+      ],
+      "note": "需要 Tavily Key；未配置时餐饮/酒店只能沿用已有资料。"
+    },
+    {
+      "source_id": "brave-search",
+      "name": "Brave Search",
+      "kind": "search",
+      "configured": false,
+      "capabilities": [
+        "web_search"
+      ],
+      "required_env": [
+        "BRAVE_API_KEY"
+      ],
+      "note": "需要 Brave Key。"
+    },
+    {
+      "source_id": "firecrawl",
+      "name": "Firecrawl",
+      "kind": "search",
+      "configured": false,
+      "capabilities": [
+        "crawl",
+        "extract"
+      ],
+      "required_env": [
+        "FIRECRAWL_API_KEY"
+      ],
+      "note": "需要 Firecrawl Key。"
+    },
+    {
+      "source_id": "amap-maps",
+      "name": "高德地图",
+      "kind": "route",
+      "configured": false,
+      "capabilities": [
+        "place_search",
+        "route_planning",
+        "transit_fare"
+      ],
+      "required_env": [
+        "AMAP_WEB_SERVICE_KEY",
+        "AMAP_MAPS_API_KEY"
+      ],
+      "note": "需要高德 Key；未配置时中国大陆精细路线与地铁票价不可查询。"
+    },
+    {
+      "source_id": "global-route-search",
+      "name": "Transitous / 高德 路径规划",
+      "kind": "route",
+      "configured": true,
+      "capabilities": [
+        "public_transit",
+        "walk",
+        "drive",
+        "bike"
+      ],
+      "required_env": [],
+      "note": "免密钥全球路径规划；中国大陆覆盖依赖高德 Key。"
+    },
+    {
+      "source_id": "nominatim",
+      "name": "OpenStreetMap Nominatim",
+      "kind": "place",
+      "configured": true,
+      "capabilities": [
+        "place_identity",
+        "geocoding"
+      ],
+      "required_env": [],
+      "note": "免密钥地点身份查询，受速率限制。"
+    },
+    {
+      "source_id": "12306-train",
+      "name": "中国铁路 12306",
+      "kind": "route",
+      "configured": false,
+      "capabilities": [
+        "train_schedule",
+        "published_fare"
+      ],
+      "required_env": [],
+      "note": "官方列车时刻与公布票价。"
+    },
+    {
+      "source_id": "duffel-flights",
+      "name": "Duffel",
+      "kind": "flight",
+      "configured": false,
+      "capabilities": [
+        "flight_search",
+        "live_quote"
+      ],
+      "required_env": [
+        "DUFFEL_API_KEY_LIVE"
+      ],
+      "note": "需要 Duffel Key；未配置时航班价格保持 unknown。"
+    },
+    {
+      "source_id": "hotel-booking",
+      "name": "酒店实时报价",
+      "kind": "hotel",
+      "configured": false,
+      "capabilities": [
+        "availability",
+        "live_quote"
+      ],
+      "required_env": [],
+      "note": "当前项目未接入酒店实时报价接口；住宿价格只能是参考估算，不能声称有房。"
+    }
+  ],
+  "coverage": {
+    "warnings": [
+      "这一天没有可用的天气快照，天气相关判断应保持未知。"
+    ],
+    "missing_fields": [
+      "days[0].routes[0].distance_m",
+      "days[0].routes[1].distance_m",
+      "days[1].weather",
+      "costs.cost_leg-metro.amount_cny",
+      "costs.cost_leg-walk.amount_cny",
+      "costs.cost_dining-dinner.amount_cny",
+      "costs.cost_visit-museum.amount_cny"
+    ],
+    "estimated_fields": [
+      "days[0].routes[2].distance_m",
+      "days[0].metrics.walking_km",
+      "days[0].metrics.outdoor_minutes",
+      "days[0].metrics.rest_minutes",
+      "days[1].metrics.walking_km",
+      "days[1].metrics.outdoor_minutes",
+      "days[1].metrics.rest_minutes"
+    ]
+  },
+  "assumptions": [
+    {
+      "code": "no_model_numbers",
+      "text": "数据集不采用模型生成的数字；数值只来自行程实体、事实来源或具名程序估算。"
+    },
+    {
+      "code": "costs_summed_by_backend",
+      "text": "所有费用汇总由后端 Decimal 计算，调用方不应再次相加。"
+    },
+    {
+      "code": "walking_scope",
+      "text": "步行统计只覆盖行程时间线中的步行段；往返住宿、临时绕行等未排程步行不计入。"
+    }
+  ]
+}
